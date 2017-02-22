@@ -3,11 +3,11 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: We use constraint propagation to solve the naked twins problem by recognizing that having a matching pair in a column row or box means that those boes can only contain one of those numbers, thus we can eliminate them from the solution set of any other boxes in their peer groups. 
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: We use constraing propagation to solve the diagonal problem by applying the same rules that we apply to columns and rows ( 1-9 only used once) to each of the diagonals on the board. pygame
 
 ### Install
 
