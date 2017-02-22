@@ -1,3 +1,5 @@
+import re
+
 assignments = []
 
 def assign_value(values, box, value):
@@ -21,6 +23,42 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+
+
+    #General plan is to take the blocks that have two elements and put them in a list 
+    print("Before naked_twin:", values)
+    naked_twin_values = [box for box in values.keys() if len(values[box]) == 2]
+    print("naked twin values", naked_twin_values)
+
+
+# We check those boxes peers to see if they contain any of the 
+
+    for box in naked_twin_values:
+        both_values= values[box]
+        digit1 = bothvalues[1]
+        digit2 = bothvalues[2]
+        for peer in peers[box]:
+            if both_values==values[peer]:
+                for peer in peers[box]:
+                    if: bothvalues !=values[peer]
+                        values[peer] = values[peer].replace(digit1, '')
+                        values[peer] = values[peer].replace(digit2, '')
+                    else:
+                        continue 
+            else:
+                continue       
+   
+    return values
+
+
+
+
+
+
+
+
+
+
 
 def cross(A, B):
     "Cross product of elements in A and elements in B."
