@@ -2,6 +2,10 @@
 
 assignments = []
 
+rows = 'ABCDEFGHI'
+cols = '123456789'
+
+
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -35,18 +39,31 @@ def naked_twins(values):
 
     for box in naked_twin_values:
         both_values= values[box]
-        digit1 = both_values[0]
-        digit2 = both_values[1]
-        for peer in peers[box]:
-            if both_values==values[peer]:
-                for peer in peers[box]:
-                    if both_values !=values[peer]:
-                        values[peer] = values[peer].replace(digit1, '')
-                        values[peer] = values[peer].replace(digit2, '')
-                    else:
-                        continue 
-            else:
-                continue       
+        if len(both_values)==2:
+            digit1 = both_values[0]
+            digit2 = both_values[1]
+            for peer in peers[box]:
+                if both_values==values[peer]:
+                    for peer in peers[box]:
+                        if both_values !=values[peer]:
+                            values[peer] = values[peer].replace(digit1, '')
+                            values[peer] = values[peer].replace(digit2, '')
+                        else:
+                            continue 
+                else:
+                    continue       
+
+        else: 
+            digit1 = both_values[0]
+            for peer in peers[box]:
+                if both_values==values[peer]:
+                    for peer in peers[box]:
+                        if both_values !=values[peer]:
+                            values[peer] = values[peer].replace(digit1, '')
+                        else:
+                            continue 
+                else:
+                    continue       
    
     return values
 
@@ -61,9 +78,16 @@ def naked_twins(values):
 
 
 def cross(A, B):
-    return [s+t for s in a for t in b]
+    return [s+t for s in A for t in B]
 
 boxes = cross(rows, cols)
+
+row_units = [cross(r, cols) for r in rows]
+column_units = [cross(rows, c) for c in cols]
+square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
+unitlist = row_units + column_units + square_units
+units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
+peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 
 def grid_values(grid):
     chars = []
