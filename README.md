@@ -7,7 +7,10 @@ A: We use constraint propagation to solve the naked twins problem by recognizing
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: We use constraing propagation to solve the diagonal problem by applying the same rules that we apply to columns and rows ( 1-9 only used once) to each of the diagonals on the board. 
+
+A: We use constraint propagation to solve the diagonal problem by applying the same rules that we apply to columns and rows ( 1-9 only used once) to each of the diagonals on the board. 
+
+
 
 ### Install
 
