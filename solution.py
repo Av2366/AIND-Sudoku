@@ -52,21 +52,22 @@ def naked_twins(values):
                             continue 
                 else:
                     continue       
+        else:
+         print(both_values)
 
-        else: 
-            digit1 = both_values[0]
-            for peer in peers[box]:
-                if both_values==values[peer]:
-                    for peer in peers[box]:
-                        if both_values !=values[peer]:
-                            values[peer] = values[peer].replace(digit1, '')
-                        else:
-                            continue 
-                else:
-                    continue       
-   
+     #"""   else: 
+      #      digit1 = both_values[0]
+       #     for peer in peers[box]:
+        #        if both_values==values[peer]:
+         #           for peer in peers[box]:
+          #              if both_values !=values[peer]:
+           #                 values[peer] = values[peer].replace(digit1, '')
+            #            else:
+             #           continue 
+            #else:
+             #   continue       
+#"""   
     return values
-
 
 
 
