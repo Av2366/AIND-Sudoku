@@ -42,6 +42,7 @@ def naked_twins(values):
 
     ]
 
+    #get all the boxes with length 2
 
     twin_boxes = [box for box in values.keys() 
     if len(values[box]) == 2
@@ -53,11 +54,14 @@ def naked_twins(values):
 
     ]
 
+    #get all the boxes that are naked twins
 
     naked_twins_boxes = [box for box in twin_boxes
         for peer in peers[box]
             if values[box]==values[peer]
             ]
+
+            #get rid of dupes
 
     naked_twins_boxes_reduced = remove_duplicate_boxes(naked_twins_boxes)
 
@@ -80,7 +84,10 @@ def naked_twins(values):
     print ('the NAKED TRUTH IS',naked_twins_boxes )
     print ('reduced set is',naked_twins_boxes_reduced)
 
+#take the reduced list and check it's peers and run replace on boxes not equal to the box you're looking at. 
 
+
+    print("Game Board before", values)
     for box in naked_twins_boxes_reduced:
         both_values= values[box]
         print('BVS',both_values)
@@ -99,7 +106,7 @@ def naked_twins(values):
             else:
                 continue
         
-
+    print("Game Board after", values)
     return values       
 
 
@@ -112,46 +119,7 @@ def naked_twins(values):
 
 
 
-'''
-# We check those boxes peers to see if they contain any of the 
-    import ipdb; ipdb.set_trace()
-    for box in naked_twin_values:
-        both_values= values[box]
-        print(values[box])
-        if len(both_values)==2:
-            digit1 = both_values[0]
-            digit2 = both_values[1]
-            for peer in peers[box]:
-                if both_values==values[peer]:
-                    for peer in peers[box]:
-                        if both_values !=values[peer]:
-                            print(box)
-                            print (box_values)
-                            values[peer] = values[peer].replace(digit1, '')
-                            values[peer] = values[peer].replace(digit2, '')
-                        else:
-                            continue 
-                else:
-                    continue       
-        else:
-         print(both_values)
-     #"""   else: 
-      #      digit1 = both_values[0]
-       #     for peer in peers[box]:
-        #        if both_values==values[peer]:
-         #           for peer in peers[box]:
-          #              if both_values !=values[peer]:
-           #                 values[peer] = values[peer].replace(digit1, '')
-            #            else:
-             #           continue 
-            #else:
-             #   continue       
-#"""   
 
-# isolate the number of twins. 
-
-
-  '''
 
 
 
