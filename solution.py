@@ -1,5 +1,4 @@
 
-
 assignments = []
 
 rows = 'ABCDEFGHI'
@@ -30,15 +29,95 @@ def naked_twins(values):
 
 
     #General plan is to take the blocks that have two elements and put them in a list 
-    print("Before naked_twin:", values)
-    naked_twin_values = [box for box in values.keys() if len(values[box]) == 2]
-    print("naked twin values", naked_twin_values)
+   
+
+    print("Game Board", values)
+    twin_values = [values[box] for box in values.keys() 
+    if len(values[box]) == 2
+        for peer in peers[box]
+            if values[peer]==values[box]
 
 
+
+
+    ]
+
+
+    twin_boxes = [box for box in values.keys() 
+    if len(values[box]) == 2
+        for peer in peers[box]
+            if values[peer]==values[box]
+
+
+
+
+    ]
+
+
+    naked_twins_boxes = [box for box in twin_boxes
+        for peer in peers[box]
+            if values[box]==values[peer]
+            ]
+
+    naked_twins_boxes_reduced = remove_duplicate_boxes(naked_twins_boxes)
+
+
+
+  #  print("twin values and singles", twin_values)
+    #reduce list to only twins
+    newlist= remove_singles(twin_values)
+    singles=remove_duplicates(twin_values)
+    nonunique = non_unique(twin_values)
+
+   # nonunique=nonunique.sort()
+    #twin_values=remove_singles(twin_values)
+    print("twin values", twin_values)
+    print('singles',singles)
+   
+    unique_twin_values=remove_duplicates(nonunique)
+    print('unique twin values ',unique_twin_values)
+  #  testlist=check_for_npair(unique_twin_values)
+    print ('the NAKED TRUTH IS',naked_twins_boxes )
+    print ('reduced set is',naked_twins_boxes_reduced)
+
+
+    for box in naked_twins_boxes_reduced:
+        both_values= values[box]
+        print('BVS',both_values)
+        digit1=both_values[0]
+        digit2=both_values[1]
+        for peer in peers[box]:
+            if both_values!=values[peer]:
+                    if digit1 in values[peer]:
+                        values[peer] = values[peer].replace(digit1, '')
+                    else:
+                        continue
+                    if digit2 in values[peer]:
+                        values[peer] = values[peer].replace(digit1, '')
+                    else:
+                        continue
+            else:
+                continue
+        
+
+    return values       
+
+
+
+
+
+
+
+    #print ('IQOIEUIOEIOWOEOUWOWOEIWIOIWUEOIWUEIOWIOEUOIU',naked_twin_values)       
+
+
+
+'''
 # We check those boxes peers to see if they contain any of the 
-
+    import ipdb; ipdb.set_trace()
     for box in naked_twin_values:
         both_values= values[box]
+        print(values[box])
         if len(both_values)==2:
             digit1 = both_values[0]
             digit2 = both_values[1]
@@ -46,6 +125,8 @@ def naked_twins(values):
                 if both_values==values[peer]:
                     for peer in peers[box]:
                         if both_values !=values[peer]:
+                            print(box)
+                            print (box_values)
                             values[peer] = values[peer].replace(digit1, '')
                             values[peer] = values[peer].replace(digit2, '')
                         else:
@@ -54,7 +135,6 @@ def naked_twins(values):
                     continue       
         else:
          print(both_values)
-
      #"""   else: 
       #      digit1 = both_values[0]
        #     for peer in peers[box]:
@@ -67,7 +147,11 @@ def naked_twins(values):
             #else:
              #   continue       
 #"""   
-    return values
+
+# isolate the number of twins. 
+
+
+  '''
 
 
 
@@ -77,6 +161,42 @@ def naked_twins(values):
 
 
 
+
+# from that list figure out which one are naked twins
+
+# then take the first twin, run replacements rinse lather repeat 
+
+   # return values
+
+
+def peer_search(twin_boxes):
+    
+
+  # naked_twins_boxes = [box for box in twin_boxes
+   #     for peer in peers[box]
+    #        if values[box]==values[peer]
+     #       ]
+
+   # return naked_twins_boxes
+   pass
+
+#defining a remove dulicates function by converting to a set and then back. 
+
+def remove_duplicates(twin_values):
+    return list(set(twin_values))
+
+def remove_duplicate_boxes(naked_twins_boxes):
+    return list(set(naked_twins_boxes))
+
+def non_unique(twin_values):
+    for index in range(len(twin_values) - 1, -1, -1):
+        if twin_values.count(twin_values[index]) == 1:
+            del twin_values[index]
+    return twin_values
+
+def remove_singles(twin_values):
+    list(filter((2).__ne__, twin_values))
+    return twin_values
 
 def cross(A, B):
     return [s+t for s in A for t in B]
