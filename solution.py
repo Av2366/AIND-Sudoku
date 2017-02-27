@@ -87,25 +87,41 @@ def naked_twins(values):
 #take the reduced list and check it's peers and run replace on boxes not equal to the box you're looking at. 
 
 
+
+
+
     print("Game Board before", values)
     for box in naked_twins_boxes_reduced:
         both_values= values[box]
         print('BVS',both_values)
         digit1=both_values[0]
         digit2=both_values[1]
+
+
+
         for peer in peers[box]:
+         #   import ipdb;ipdb.set_trace()
+           
+
             if both_values!=values[peer]:
+           #BUG
+
                     if digit1 in values[peer]:
+                      #  print('peer',values[peer])
                         values[peer] = values[peer].replace(digit1, '')
+                        
                     else:
                         continue
                     if digit2 in values[peer]:
+                     #   print(peer,values[peer])
                         values[peer] = values[peer].replace(digit1, '')
+                         
                     else:
                         continue
             else:
                 continue
         
+#BUG
     print("Game Board after", values)
     return values       
 
