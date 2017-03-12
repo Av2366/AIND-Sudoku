@@ -31,6 +31,11 @@ def naked_twins(values):
     #General plan is to take the blocks that have two elements and put them in a list 
    
 
+
+
+
+
+
     print("Game Board", values)
     twin_values = [values[box] for box in values.keys() 
     if len(values[box]) == 2
@@ -41,6 +46,9 @@ def naked_twins(values):
 
 
     ]
+
+  
+
 
     #get all the boxes with length 2
 
@@ -53,6 +61,32 @@ def naked_twins(values):
 
 
     ]
+    two_boxes = [box for box in values.keys()
+        if len(values[box]) == 2 ]
+
+    gemini = [box for box in two_boxes
+        for peer in peers[box]
+            if values[peer]==values[box] ]
+    gemini = remove_duplicate_boxes(gemini)           
+
+
+   
+    print('skfalfkldfdjljlsdf',two_boxes)
+    print('KDFJLKJFLKJDFLJLFJ',gemini)
+
+# start of newer solution
+# Take all blocks that have naked twins
+# Take each one and blank out everything except the block it's equal to
+# do this for everything
+# return the board.
+
+
+
+# part 1 
+
+
+
+
 
     #get all the boxes that are naked twins
 
@@ -91,35 +125,67 @@ def naked_twins(values):
 
 
     print("Game Board before", values)
-    for box in naked_twins_boxes_reduced:
-        both_values= values[box]
-        print('BVS',both_values)
-        digit1=both_values[0]
-        digit2=both_values[1]
+    for box in gemini:
+        equals_search(box)
+        print('FUCKING WORK',box)
+        intersection_of_peers(box,equal_box)
+        print ('FUCKING WORK', equal_box)
+        blank_out(pug,box,equal_box)
 
 
 
-        for peer in peers[box]:
+
+
+  #      for peer in peers[box]:
+   #         if values[box]==values[peer]:
+    #                both_values= values[box]
+     #               print('BVS',both_values)
+      #              digit1=both_values[0]
+       #             digit2=both_values[1]
+        #            if both_values!=values[peer]:
+         #               if digit1 in values[peer]:
+          #                  print('peer',values[peer])
+           #                 values[peer] = values[peer].replace(digit1, '')
+                        
+            #            if digit2 in values[peer]:
+             #               values[peer] = values[peer].replace(digit2, '')
+
+
+
+
+
+   # for box in gemini:
+    #    equals_search(box)
+     #   print ('FUCKING',box)
+
+
+
+
+
+
+        
+        
+
+
+
+        
          #   import ipdb;ipdb.set_trace()
            
 
-            if both_values!=values[peer]:
+            
            #BUG
 
-                    if digit1 in values[peer]:
-                      #  print('peer',values[peer])
-                        values[peer] = values[peer].replace(digit1, '')
+                    
                         
-                    else:
-                        continue
-                    if digit2 in values[peer]:
+                   
+                    
                      #   print(peer,values[peer])
-                        values[peer] = values[peer].replace(digit1, '')
+                        
                          
-                    else:
-                        continue
-            else:
-                continue
+                 #   else:
+                  #      continue
+           # else:
+            #    continue
         
 #BUG
     print("Game Board after", values)
@@ -138,7 +204,7 @@ def naked_twins(values):
 
 
 
-
+#print ('akdjslsjdlsjdlsadlsadjsldlasdssdlsda',intersection_of_peers(A1,A2))
 
 
 
@@ -153,16 +219,43 @@ def naked_twins(values):
    # return values
 
 
-def peer_search(twin_boxes):
+
+
+def intersection_of_peers(box,equal_box):
+
+    a= set(peers[box1])
+    b= set(peers[box2])
+    pug = (a & b)
+    pug = list()
+
+    return pug
+
+def blank_out(pug,box,equal_box):
+
+    for box in pug:
+        boxx_value=values[box]
+        digit1=boxx_values[0]
+        digit2=boxx_values[1]    
+
+        if  box != equal_box:
+            values[box] = values[peer].replace(digit1, '')
+            values[box] = values[peer].replace(digit2, '')
+    return 
+
+
     
 
-  # naked_twins_boxes = [box for box in twin_boxes
-   #     for peer in peers[box]
-    #        if values[box]==values[peer]
-     #       ]
 
-   # return naked_twins_boxes
-   pass
+def equals_search(box):
+
+    for peer in peers[box]:
+        if values[box]==values[peer]:
+            equal_box = peer
+    return equal_box
+
+
+    
+
 
 #defining a remove dulicates function by converting to a set and then back. 
 
