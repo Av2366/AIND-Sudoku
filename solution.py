@@ -3,8 +3,7 @@ assignments = []
 
 rows = 'ABCDEFGHI'
 cols = '123456789'
-
-
+puggle=[]
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -126,12 +125,9 @@ def naked_twins(values):
 
     print("Game Board before", values)
     for box in gemini:
-        equals_search(box)
-        print('FUCKING WORK',box)
-        intersection_of_peers(box,equal_box)
-        print ('FUCKING WORK', equal_box)
-        blank_out(pug,box,equal_box)
-
+       
+        puggle= equals_search('A1')
+        print ('BLAH!!',puggle)
 
 
 
@@ -223,12 +219,12 @@ def naked_twins(values):
 
 def intersection_of_peers(box,equal_box):
 
-    a= set(peers[box1])
-    b= set(peers[box2])
+    a= set(peers[box])
+    b= set(peers[equal_box])
     pug = (a & b)
-    pug = list()
+    
 
-    return pug
+    return list(pug)
 
 def blank_out(pug,box,equal_box):
 
