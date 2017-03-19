@@ -32,6 +32,13 @@ def naked_twins(values):
 
 
 
+# Take a single box in the intersect - see if it's equal to original value
+#  it is leave it alone. 
+#if it's not blank out the digits. 
+
+
+
+
 
 
 
@@ -116,6 +123,7 @@ def naked_twins(values):
   #  testlist=check_for_npair(unique_twin_values)
     print ('the NAKED TRUTH IS',naked_twins_boxes )
     print ('reduced set is',naked_twins_boxes_reduced)
+    print ('should be equal to ',gemini)
 
 #take the reduced list and check it's peers and run replace on boxes not equal to the box you're looking at. 
 
@@ -125,9 +133,18 @@ def naked_twins(values):
 
     print("Game Board before", values)
     for box in gemini:
-       
-        puggle= equals_search('A1')
-        print ('BLAH!!',puggle)
+        if len(values[box]) ==2:
+            equal_box1= equals_search(values,box)
+            intersect= intersection_of_peers(box,equal_box1)
+            results = blank_out(values,intersect,equal_box1)
+
+        else:
+            continue
+
+
+
+
+
 
 
 
@@ -226,26 +243,31 @@ def intersection_of_peers(box,equal_box):
 
     return list(pug)
 
-def blank_out(pug,box,equal_box):
+def blank_out(values,intersect,equal_box):
 
-    for box in pug:
-        boxx_value=values[box]
-        digit1=boxx_values[0]
-        digit2=boxx_values[1]    
+    for box in intersect:
+        
+        boxx_value=values[equal_box]
+        digit1=boxx_value[0]
+        digit2=boxx_value[1]
+        print ('skdjsakdj',boxx_value)    
 
-        if  box != equal_box:
-            values[box] = values[peer].replace(digit1, '')
-            values[box] = values[peer].replace(digit2, '')
-    return 
+        if  box != equal_box and len(boxx_value)==2:
+
+            values[box] = values[box].replace(digit1, '')
+            values[box] = values[box].replace(digit2, '')
+        else:
+            continue    
+    return  values
 
 
     
 
 
-def equals_search(box):
+def equals_search(values,box):
 
     for peer in peers[box]:
-        if values[box]==values[peer]:
+        if values[box]==values[peer] and len(values[peer])==2:
             equal_box = peer
     return equal_box
 
