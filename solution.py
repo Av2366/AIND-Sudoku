@@ -115,15 +115,15 @@ def naked_twins(values):
 
    # nonunique=nonunique.sort()
     #twin_values=remove_singles(twin_values)
-    print("twin values", twin_values)
-    print('singles',singles)
+    #print("twin values", twin_values)
+    #print('singles',singles)
    
     unique_twin_values=remove_duplicates(nonunique)
-    print('unique twin values ',unique_twin_values)
+    #print('unique twin values ',unique_twin_values)
   #  testlist=check_for_npair(unique_twin_values)
-    print ('the NAKED TRUTH IS',naked_twins_boxes )
-    print ('reduced set is',naked_twins_boxes_reduced)
-    print ('should be equal to ',gemini)
+    #print ('the NAKED TRUTH IS',naked_twins_boxes )
+    #print ('reduced set is',naked_twins_boxes_reduced)
+    #print ('should be equal to ',gemini)
 
 #take the reduced list and check it's peers and run replace on boxes not equal to the box you're looking at. 
 
@@ -131,7 +131,7 @@ def naked_twins(values):
 
 
 
-    print("Game Board before", values)
+   # print("Game Board before", values)
     for box in gemini:
         if len(values[box]) ==2:
             equal_box1= equals_search(values,box)
@@ -201,7 +201,7 @@ def naked_twins(values):
             #    continue
         
 #BUG
-    print("Game Board after", values)
+ #   print("Game Board after", values)
     return values       
 
 
@@ -250,12 +250,16 @@ def blank_out(values,intersect,equal_box):
         boxx_value=values[equal_box]
         digit1=boxx_value[0]
         digit2=boxx_value[1]
-        print ('skdjsakdj',boxx_value)    
+       # print ('skdjsakdj',boxx_value)    
 
         if  box != equal_box and len(boxx_value)==2:
 
-            values[box] = values[box].replace(digit1, '')
-            values[box] = values[box].replace(digit2, '')
+           # values[box] = values[box].replace(digit1, '')
+            assign_value(values,box,values[box].replace(digit1,''))
+            assign_value(values,box,values[box].replace(digit2,''))
+            #values[box] = values[box].replace(digit2, '')
+#           
+
         else:
             continue    
     return  values
@@ -297,13 +301,20 @@ def cross(A, B):
     return [s+t for s in A for t in B]
 
 boxes = cross(rows, cols)
-
+diagonal1 = dict([a[0]+a[1] for a in zip(rows, cols)])
+diagonal2 = dict( [a[0]+a[1] for a in zip(rows, cols[::-1])])
 row_units = [cross(r, cols) for r in rows]
 column_units = [cross(rows, c) for c in cols]
 square_units = [cross(rs, cs) for rs in ('ABC','DEF','GHI') for cs in ('123','456','789')]
-unitlist = row_units + column_units + square_units
+unitlist = row_units + column_units + square_units 
 units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
+print ('diagonals',diagonal1,diagonal2)
+diag1peers = peers.update(diagonal1)
+diag2peers =peers.update(diagonal2)
+
+
+
 
 def grid_values(grid):
     chars = []
@@ -338,10 +349,46 @@ def display(values):
 def eliminate(values):
     solved_values = [box for box in values.keys() if len(values[box]) == 1]
     for box in solved_values:
+      
+
+
+
+
+
+         #if box in (diagonal1):
+
+       #     update(diagonal1)
+       #     peers.remove(box)
+       #     digit = values[box]
+       #     print ('AJDLSHDLSKAJDKSDJLSJLJDJLSJD')
+
+      #  for peer in peers[box]:
+      #      digit = values[box]
+            #values[peer] = values[peer].replace(digit,'')
+      #      assign_value(values,peer,values[peer].replace(digit,''))
+       #     return values
+
+
+         
+
+  #  if box in(diagonal2):
+    #    peers.update(diagonal2)
+     #   peers.remove(box)
+     #   digit = values[box]
+      #  print ('SKDASLKJDLSKJSDJ')
+
+       # for peer in peers[box]:
+           # values[peer] = values[peer].replace(digit,'')
+           # assign_value(values,peer,values[peer].replace(digit,''))
+            # return values
+# 
+
+
         digit = values[box]
         for peer in peers[box]:
             values[peer] = values[peer].replace(digit,'')
-    return values
+            assign_value(values,peer,values[peer].replace(digit,''))
+            return values
 
 def only_choice(values):
     for unit in unitlist:
@@ -388,6 +435,13 @@ def search(values):
             return attempt
 
 def solve(grid):
+#    grid= reduce_puzzle(only_choice((eliminate((grid_values(grid)))))
+
+
+
+
+
+
     """
     Find the solution to a Sudoku grid.
     Args:
@@ -396,10 +450,25 @@ def solve(grid):
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    grid =grid_values(grid)
+    grid =search(grid)
+    print('adam adam adam ')
+
+
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    display(solve(diag_sudoku_grid))
+    #diag_sudoku_grid= grid_values(diag_sudoku_grid)
+    
+
+
+    solve(diag_sudoku_grid)
+   # print('asdhlaskjlkjflf',assignments)
+    
+
+
+
+
 
     try:
         from visualize import visualize_assignments
