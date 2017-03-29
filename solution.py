@@ -1,3 +1,6 @@
+from itertools import chain
+from collections import defaultdict
+
 
 assignments = []
 
@@ -263,14 +266,19 @@ def add_diagonals(peers):
 
     for box in peers:
         if box in diagonal1:
-            terrier =[]
-            peers[box]=terrier
-            peers.update(diagonal1)
-            peers.update(terrier)
-            del peers[box]
-            #print (peers['A1'])
+            diagon1= diagonal1.remove[box]
+            peers[box].append(diagon1)
+
+    for box in peers:
+        if box in diagonal2:
+            diagon2= diagonal2.remove[box]
+            peers[box].append(diagon2)
 
     return peers
+
+    
+
+
     
 
 
@@ -316,7 +324,7 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 diagonal1 = ['A1','B2','C3','D4','E5','F6','G7','H8','I9']
 diagonal2 = ['I1','H2','G3','F4','E5','D6','C7','B8','A9']
-peers = add_diagonals(peers)
+#peers = add_diagonals(peers)
 
 
 
