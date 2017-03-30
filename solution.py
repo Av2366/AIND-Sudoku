@@ -1,6 +1,6 @@
 from itertools import chain
 from collections import defaultdict
-
+from copy import copy
 
 assignments = []
 
@@ -264,15 +264,21 @@ def blank_out(values,intersect,equal_box):
 
 def add_diagonals(peers):
 
-    for box in peers:
-        if box in diagonal1:
-            diagon1= diagonal1.remove[box]
-            peers[box].append(diagon1)
+    for peer in peers:
+        if peer in diagonal1:
+            diagonal1_copy=copy(diagonal1)
+            diagonal1_copy.remove(peer)
+            peers[peer] = peers[peer].union(diagonal1_copy)
+        else:
+            continue
 
-    for box in peers:
-        if box in diagonal2:
-            diagon2= diagonal2.remove[box]
-            peers[box].append(diagon2)
+    for peer in peers:
+        if peer in diagonal2:
+            diagonal2_copy=copy(diagonal2)
+            diagonal2_copy.remove(peer)
+            peers[peer] = peers[peer].union(diagonal2_copy)
+        else:
+            continue
 
     return peers
 
@@ -324,7 +330,7 @@ units = dict((s, [u for u in unitlist if s in u]) for s in boxes)
 peers = dict((s, set(sum(units[s],[]))-set([s])) for s in boxes)
 diagonal1 = ['A1','B2','C3','D4','E5','F6','G7','H8','I9']
 diagonal2 = ['I1','H2','G3','F4','E5','D6','C7','B8','A9']
-#peers = add_diagonals(peers)
+peers = add_diagonals(peers)
 
 
 
@@ -383,7 +389,7 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         values = eliminate(values)
         # Your code here: Use the Eliminate Strategy
-        vaules= only_choice(values)
+        only_choice(values)
         # Your code here: Use the Only Choice Strategy
          
         # Check how many boxes have a determined value, to compare
@@ -415,18 +421,38 @@ def search(values):
 
 def solve(grid):
     """
-    Find the solution to a Sudoku grid.
+        grid =grid_values(grid)
+    grid =search(grid)
+    print('adam adam adam ')Find the solution to a Sudoku grid.
     Args:
         grid(string): a string representing a sudoku grid.
             Example: '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
     Returns:
         The dictionary representation of the final sudoku grid. False if no solution exists.
     """
+    #diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+   #values =grid_values(grid)
+  # values =search(values)
+    #print('adam adam adam ')
+    
+    grid =grid_values(grid)
+    grid =search(grid)
+    values = grid
+    print('adam adam adam ')
+    return values
+   
+
+
 
 if __name__ == '__main__':
     diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
-    display(solve(diag_sudoku_grid))
-
+   # display(solve(diag_sudoku_grid))
+     #diag_sudoku_grid = '2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3'
+    
+    values =  grid_values(diag_sudoku_grid)
+    
+    print ('adam adam adam',values)
+   
     try:
         from visualize import visualize_assignments
         visualize_assignments(assignments)
