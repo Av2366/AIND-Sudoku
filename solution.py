@@ -44,7 +44,7 @@ def naked_twins(values):
 
 
 
-    print("Game Board", values)
+ #   print("Game Board", values)
     twin_values = [values[box] for box in values.keys() 
     if len(values[box]) == 2
         for peer in peers[box]
@@ -65,22 +65,26 @@ def naked_twins(values):
         for peer in peers[box]
             if values[peer]==values[box]
 
-
+  #two boxes is the list of boxes that have two possible solutions           
 
 
     ]
     two_boxes = [box for box in values.keys()
         if len(values[box]) == 2 ]
 
+
+
+
     gemini = [box for box in two_boxes
         for peer in peers[box]
             if values[peer]==values[box] ]
     gemini = remove_duplicate_boxes(gemini)           
 
+    #Gemini = is the list of boxes that have two elements AND have a peer that is equal. 
 
    
-    print('skfalfkldfdjljlsdf',two_boxes)
-    print('KDFJLKJFLKJDFLJLFJ',gemini)
+  #  print('skfalfkldfdjljlsdf',two_boxes)
+  #  print('KDFJLKJFLKJDFLJLFJ',gemini)
 
 # start of newer solution
 # Take all blocks that have naked twins
@@ -238,6 +242,8 @@ def naked_twins(values):
 
 def intersection_of_peers(box,equal_box):
 
+    #method that lets me find the intersection of peers of naked twins 
+
     a= set(peers[box])
     b= set(peers[equal_box])
     pug = (a & b)
@@ -246,6 +252,9 @@ def intersection_of_peers(box,equal_box):
     return list(pug)
 
 def blank_out(values,intersect,equal_box):
+
+
+    #method that gets rid of the naked twins values in the intersection of peers 
 
     for box in intersect:
         
@@ -263,6 +272,7 @@ def blank_out(values,intersect,equal_box):
     return  values
 
 def add_diagonals(peers):
+#method that adds diagonals - minus the box itself to the peer list of any box on the diagonal. 
 
     for peer in peers:
         if peer in diagonal1:
@@ -295,7 +305,7 @@ def equals_search(values,box):
             equal_box = peer
     return equal_box
 
-
+  #  looking for peers that equal each other and have a length of two 
     
 
 
